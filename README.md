@@ -1,97 +1,146 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Real-Time Chat Application
 
-# Getting Started
+A professional chat application built with React Native CLI and Node.js with Socket.IO for real-time messaging.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Features
 
-## Step 1: Start Metro
+### 🚀 Core Features
+- **Email/Password Authentication** - Secure login system
+- **Real-time Messaging** - Instant message delivery using Socket.IO
+- **Message Status** - Sent, Delivered, Read receipts with icons
+- **Online Status** - See who's online with green indicators
+- **Typing Indicators** - Animated dots when someone is typing
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+### 📱 Mobile App Features
+- **Sender/Receiver Layout** - Messages properly aligned (sender right, receiver left)
+- **Message Bubbles** - Professional chat bubbles with tails
+- **Time Stamps** - Smart time formatting (just now, 5 min ago, etc.)
+- **User Avatars** - Colorful avatars with initials
+- **Pull to Refresh** - Refresh user list
+- **Keyboard Handling** - Proper keyboard avoidance
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+### 🔧 Technical Features
+- **JWT Authentication** - Secure token-based auth
+- **MongoDB Database** - Persistent message storage
+- **Socket.IO** - Real-time bidirectional communication
+- **Message Delivery** - Reliable message delivery system
+- **Error Handling** - Comprehensive error handling
 
-```sh
-# Using npm
-npm start
+## Setup Instructions
 
-# OR using Yarn
-yarn start
-```
+### Prerequisites
+- Node.js (v16 or higher)
+- MongoDB (local or cloud)
+- React Native CLI
+- Android Studio (for Android)
+- Xcode (for iOS)
 
-## Step 2: Build and run your app
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Mobile App Setup
 
-### Android
+1. **Navigate to mobile directory:**
+   \`\`\`bash
+   cd mobile
+   \`\`\`
 
-```sh
-# Using npm
-npm run android
+2. **Install dependencies:**
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-# OR using Yarn
-yarn android
-```
+3. **Install iOS dependencies (iOS only):**
+   \`\`\`bash
+   cd ios && pod install && cd ..
+   \`\`\`
 
-### iOS
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+5. **Run the app:**
+   \`\`\`bash
+   # For Android
+   npm run android
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+   # For iOS
+   npm run ios
+   \`\`\`
 
-```sh
-bundle install
-```
+## API Endpoints
 
-Then, and every time you update your native dependencies, run:
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/me` - Get current user
 
-```sh
-bundle exec pod install
-```
+### Users
+- `GET /api/users` - Get all users with last messages
+- `GET /api/users/profile` - Get user profile
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Messages
+- `GET /api/messages/:userId` - Get messages with specific user
+- `POST /api/messages` - Send a message
+- `PUT /api/messages/read/:senderId` - Mark messages as read
 
-```sh
-# Using npm
-npm run ios
+## Socket Events
 
-# OR using Yarn
-yarn ios
-```
+### Client to Server
+- `message:send` - Send a new message
+- `message:delivered` - Confirm message delivery
+- `message:read` - Confirm message read
+- `messages:mark_read` - Mark all messages as read
+- `typing:start` - Start typing indicator
+- `typing:stop` - Stop typing indicator
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+### Server to Client
+- `message:new` - Receive new message
+- `message:sent` - Message sent confirmation
+- `message:delivered` - Message delivered confirmation
+- `message:read` - Message read confirmation
+- `messages:read` - All messages read confirmation
+- `typing:start` - User started typing
+- `typing:stop` - User stopped typing
+- `user_online` - User came online
+- `user_offline` - User went offline
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
 
-## Step 3: Modify your app
+## Testing
 
-Now that you have successfully run the app, let's make changes!
+1. **Register two users** with different email addresses
+2. **Login with both users** on different devices/emulators
+3. **Send messages** between users
+4. **Verify real-time delivery** and status updates
+5. **Test typing indicators** and online status
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## Troubleshooting
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Common Issues
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+1. **Connection Issues:**
+   - Make sure both devices are on the same network
+   - Update IP address in API configuration
+   - Check firewall settings
 
-## Congratulations! :tada:
+2. **MongoDB Connection:**
+   - Ensure MongoDB is running
+   - Check connection string in .env file
 
-You've successfully run and modified your React Native App. :partying_face:
+3. **Socket Connection:**
+   - Verify server is running on correct port
+   - Check network connectivity
+   - Look for CORS issues
 
-### Now what?
+### Debug Tips
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- Check server logs for errors
+- Use React Native debugger for mobile issues
+- Monitor network requests in development tools
+- Check MongoDB logs for database issues
 
-# Troubleshooting
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Technologies Used
 
-# Learn More
+- **Frontend:** React Native CLI, React Navigation
+- **Backend:** Node.js, Express.js
+- **Database:** MongoDB with Mongoose
+- **Real-time:** Socket.IO
+- **Authentication:** JWT (JSON Web Tokens)
+- **Styling:** React Native StyleSheet
 
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
